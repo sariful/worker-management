@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>received item view</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link href="assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="assets/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+    <link href="assets/css/theme-admin.css" rel="stylesheet"> -->
+
+    
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/pnotify.custom.min.css" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="assets/css/select2.min.css" />
+    <link rel="stylesheet" href="assets/css/theme-admin.css">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <div id="nav"></div>
+    <div class="content-wrapper">
+        <!-- main contents    -->
+        <div class="container" style="width:80%">
+            <br>
+            <br>
+            <div class="first_part">
+                <table style="width:100%">
+                    <tr class="text-rigth">
+                        <td>
+                            <h5>Name:</h5>
+                        </td>
+                        <td>
+                            <h5 class="worker_name"></h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5>Date:</h5>
+                        </td>
+                        <td>
+                            <h5 class="date"></h5>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <table class="table table-bordered table-condensed table-hover table-striped rowCont receive_table" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>Design No</th>
+                        <th>Lot No</th>
+                        <th>Size</th>
+                        <th>Quantity</th>
+                        <th>Rate</th>
+                        <th>Amount</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th class="total_quantity"></th>
+                        <th></th>
+                        <th class="total_amount"></th>
+                    </tr>
+                </tfoot>
+            </table>
+            <br>
+            <div class="buttons"></div>
+        </div>
+    </div>
+    <div id="footer"></div>
+</body>
+
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/popper.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/select2.min.js"></script>
+<script type="text/javascript" src="assets/js/pnotify.custom.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="assets/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="assets/js/theme-admin.js"></script>
+<script>
+PNotify.prototype.options.styling = "bootstrap3";
+PNotify.prototype.options.styling = "fontawesome";
+$('#nav').load('partials/nav.html');
+$('#footer').load('partials/footer.html');
+</script>
+<script src="assets/js/app.js"></script>
+<!-- main script -->
+<script type="text/javascript">
+var id = zubizi.getUrlParameter('id');
+console.log(id)
+$.ajax({
+    url: "api/get_received.php",
+    data: {
+        id: id
+    },
+    success: function(data) {
+        console.log(id)
+        var table = $('.receive_table').DataTable({
+            "searching": false,
+            "info": false,
+            "paging": false,
+            // "responsive": true,
+            data: data.items,
+            "columns": [
+                { "data": "design_no" },
+                { "data": "lot" },
+                { "data": "size" },
+                { "data": "quantity" },
+                { "data": "rate" },
+                { "data": "amount" }
+            ]
+        });
+
+        $(".date").text(data.data.date);
+        $(".worker_name").text(data.data.worker_name);
+        $(".total_quantity").text(data.data.total_quantity);
+        $(".total_amount").text(data.data.total_amount);
+        $(".buttons").html(`<a href="receive_item_edit.html?id=${id}" class="btn btn-success" >Edit</a>`);
+    }
+});
+</script>
+
+</html>

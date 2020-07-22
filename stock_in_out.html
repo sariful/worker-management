@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>stock in out</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link href="assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="assets/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+    <link href="assets/css/theme-admin.css" rel="stylesheet"> -->
+
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/pnotify.custom.min.css" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="assets/css/select2.min.css" />
+    <link rel="stylesheet" href="assets/css/theme-admin.css">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <div id="nav"></div>
+    <div class="content-wrapper">
+        <!-- main contents    -->
+        <!-- <div class="container">
+            <br> -->
+            <table class="stock_table table table table-striped table-bordered row-border hover order-column example " name="delete_id" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Lot No</th>
+                        <th>Design</th>
+                        <th>Item</th>
+                        <th>Assign To</th>
+                        <th>Assign Date</th>
+                        <th>Assign Qantity</th>
+                        <th>Receive Date</th>
+                        <th>Receive Qantity</th>
+                    </tr>
+                </thead>
+            </table>
+     <!--    </div> -->
+    </div>
+    <div id="footer"></div>
+</body>
+
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/popper.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/select2.min.js"></script>
+<script type="text/javascript" src="assets/js/pnotify.custom.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="assets/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="assets/js/theme-admin.js"></script>
+<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+<script type="text/javascript" src="assets/js/pnotify.custom.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="assets/js/theme-admin.js"></script> -->
+<script>
+PNotify.prototype.options.styling = "bootstrap3";
+PNotify.prototype.options.styling = "fontawesome";
+$('#nav').load('partials/nav.html');
+$('#footer').load('partials/footer.html');
+</script>
+<script src="assets/js/app.js"></script>
+<!-- main script -->
+<script type="text/javascript">
+var table = $('.stock_table').DataTable({
+    "ajax": {
+        url: "api/get_stock.php",
+        dataSrc: "data"
+    },
+    "columns": [
+        { "data": "lot_no" },
+        { "data": "design_no" },
+        { "data": "item" },
+        { "data": "name" },
+        { "data": "date" },
+        { "data": "quantity" },
+        { "data": "receive_date" },
+        { "data": "receive_quantity" }
+
+    ]
+}).draw(false);
+</script>
+
+</html>

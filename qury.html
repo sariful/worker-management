@@ -1,0 +1,23 @@
+SELECT  tb_worker_details.worker_id,tb_worker.worker_type
+FROM tb_worker_details
+INNER JOIN tb_worker ON tb_worker_details.worker_type = tb_worker.id;
+
+
+
+SELECT  tb_worker_details.worker_id,tb_worker_details.name,tb_worker_details.address,tb_worker_details.phone_no,tb_worker_details.opening_balance,tb_worker_details.remarks,tb_worker.worker_type
+FROM tb_worker_details
+INNER JOIN tb_worker ON tb_worker_details.worker_type = tb_worker.id;
+
+SELECT  company_details.worker_id,print_setup.worker_type
+FROM  company_detail
+INNER JOIN print_setup ON  company_detail.worker_type = print_setup.id;
+
+
+SELECT company_details.id,print_setup.text,company_details.address,company_details.mobile,company_details.name,company_details.email,company_details.gst,company_details.extension,company_details.bank_name,company_details.bank_ac_no,company_details.bank_ifsc,company_details.bank_rtgs,company_details.invoice_suffix,company_details.invoice_prefix
+FROM company_details
+INNER JOIN print_setup ON company_details.print = print_setup.id;
+
+
+
+
+SELECT * FROM tb_worker_details order by name

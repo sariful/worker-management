@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>lot details</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link href="assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="assets/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" /> -->
+    
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/pnotify.custom.min.css" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="assets/css/select2.min.css" />
+    <link rel="stylesheet" href="assets/css/theme-admin.css">
+    <link href="assets/css/theme-admin.css" rel="stylesheet">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <div id="nav"></div>
+    <div class="content-wrapper">
+        <!-- main contents    -->
+        <div class="container">
+            <br>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#home">Lot Entry</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#menu1">View</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="home" class="container tab-pane active">
+                    <br>
+                    <form class="lot_entry" action="api/get_lot_entry.php" method="post">
+                        <div class="form-group row">
+                            <label for="example-date-input" class="col-2 col-form-label">Date:</label>
+                            <div class="col-10">
+                                <input class="form-control date" type="date" name="date_time" id="example-date-input">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Lot No:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="example-text-input" name="lot_no" placeholder="Lot No" autofocus>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Design No:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="example-text-input" name="design_no" placeholder="Design No">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Item/Desc:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="example-text-input" name="item/desc" placeholder="Item/Desc">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-number-input" class="col-2 col-form-label">Rate:</label>
+                            <div class="col-10">
+                                <input class="form-control" type="number" name="rate" id="example-number-input" placeholder="Rate">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-number-input" class="col-2 col-form-label">Dozon:</label>
+                            <div class="col-10">
+                                <input class="form-control" type="number" name="dozon" id="example-number-input" placeholder="Dozon">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-number-input" class="col-2 col-form-label">Quantity:</label>
+                            <div class="col-10">
+                                <input class="form-control" type="number" name="quantity" id="example-number-input" placeholder="Quantity">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-number-input" class="col-2 col-form-label">Amount:</label>
+                            <div class="col-10">
+                                <input class="form-control" type="number" name="amount" readonly id="example-number-input" placeholder="Amount">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="offset-sm-2 col-sm-10">
+                                <input type="hidden" name="entry">
+                                <button type="submit" class="btn btn-primary">Save &nbsp;</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="menu1" class="container tab-pane fade">
+                    <br>
+                    <!-- start_form_add_worker_type -->
+                    <br>
+                    <br>
+                    <table class="lot_entry_table table table-striped table-bordered row-border hover order-column example " name="delete_id" style="width: 100%;">
+                        <thead>
+                            <th>Date</th>
+                            <th>Lot No</th>
+                            <th>Design</th>
+                            <th>Item</th>
+                            <th>Dozon</th>
+                            <th>Quantity</th>
+                            <th>Rate</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <!-- start_modal_form_add_worker -->
+                            <form class="lot_entry_edit" action="api/get_lot_entry.php" method="post">
+                                <div class="form-group row">
+                                    <label for="example-date-input" class="col-2 col-form-label">Date:</label>
+                                    <div class="col-10">
+                                        <input class="form-control" type="date" name="date_time" id="example-date-input">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-sm-2 col-form-label">Lot No:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="example-text-input" name="lot_no" placeholder="Lot No">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-sm-2 col-form-label">Design No:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="example-text-input" name="design_no" placeholder="Design No">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-sm-2 col-form-label">Item/Desc:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="example-text-input" name="item" placeholder="Item/Desc">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-number-input" class="col-2 col-form-label">Dozon:</label>
+                                    <div class="col-10">
+                                        <input class="form-control dozon" type="number" name="dozon" id="example-number-input" placeholder="Dozon">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-number-input" class="col-2 col-form-label">Quantity:</label>
+                                    <div class="col-10">
+                                        <input class="form-control quantity" type="number" name="quantity" id="example-number-input" placeholder="Quantity">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-number-input" class="col-2 col-form-label">Rate:</label>
+                                    <div class="col-10">
+                                        <input class="form-control" type="number" name="rate" id="example-number-input" placeholder="Rate">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-number-input" class="col-2 col-form-label">Amount:</label>
+                                    <div class="col-10">
+                                        <input class="form-control" type="number" name="amount" readonly id="example-number-input" placeholder="Amount">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="offset-sm-2 col-sm-10">
+                                        <input type="hidden" name="edit_id">
+                                        <button type="submit" class="btn btn-primary">Save &nbsp;</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- end_modal_form_add_worker -->
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer"></div>
+</body>
+
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/popper.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/select2.min.js"></script>
+<script type="text/javascript" src="assets/js/pnotify.custom.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="assets/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="assets/js/theme-admin.js"></script>
+<script>
+PNotify.prototype.options.styling = "bootstrap3";
+PNotify.prototype.options.styling = "fontawesome";
+$('#nav').load('partials/nav.html');
+$('#footer').load('partials/footer.html');
+</script>
+<script src="assets/js/app.js"></script>
+<!-- main script -->
+<script>
+var quantity;
+zubizi.ajax_form_submit(".lot_entry", '', function() {
+    table.ajax.reload(null, false);
+    set_date();
+});
+zubizi.ajax_form_submit(".lot_entry_edit", '', function() {
+    table.ajax.reload(null, false);
+});
+var table = $('.lot_entry_table').DataTable({
+    "ajax": {
+        url: "api/get_lot_entry.php",
+        dataSrc: "data"
+    },
+    "columns": [
+        { "data": "date_time" },
+        { "data": "lot_no" },
+        { "data": "design_no" },
+        { "data": "item" },
+        { "data": "dozon" },
+        { "data": "quantity" },
+        { "data": "rate" },
+        { "data": "amount" },
+        {
+            "data": "id",
+            "render": function(data, type, row, meta) {
+                return `<button class="btn btn-success btn-sm" data-id="${data}"><i class="fa-pencil fa"></i></button>
+                             <button class="btn btn-danger btn-sm" data-id="${data}"><i class="fa fa-trash" aria-hidden="true"></i></button>`;
+            }
+        }
+    ]
+}).draw(false);
+$('.lot_entry_table tbody').on('click', 'tr .btn-success', function() {
+    var data = table.row($(this).parents('tr')).data();
+    $('#myModal').modal('show');
+    $('#myModal').on('shown.bs.modal', function(event) {
+        var modal = $(this);
+        modal.find('[name=edit_id]').val(data.id);
+        modal.find('[name=date_time]').val(data.date_time).focus();
+        modal.find('[name=lot_no]').val(data.lot_no);
+        modal.find('[name=design_no]').val(data.design_no);
+        modal.find('[name=item]').val(data.item);
+        modal.find('[name=dozon]').val(data.dozon);
+        modal.find('[name=quantity]').val(data.quantity);
+        modal.find('[name=rate]').val(data.rate);
+        modal.find('[name=amount]').val(data.amount);
+    });
+});
+$('.lot_entry_table tbody').on('click', 'tr .btn-danger', function() {
+    zubizi.ajax_delete_row('api/get_lot_entry.php?delete_id=' + $(this).data('id'), table);
+
+});
+$('.lot_entry').on("keyup change", '[name=dozon], [name=rate], [name=quantity]', function() {
+    var dozon = $('.lot_entry').find('[name=dozon]').val();
+    var rate = $('.lot_entry').find('[name=rate]').val();
+    $('.lot_entry').find('[name=quantity]').val(12 * dozon);
+    // console.log(quantity)
+    $('.lot_entry').find('[name=amount]').val(12 * dozon * rate);
+});
+$('.lot_entry_edit').on("keyup change", '[name=dozon], [name=rate], [name=quantity]', function() {
+    var dozon = $('.lot_entry_edit').find('[name=dozon]').val();
+    var rate = $('.lot_entry_edit').find('[name=rate]').val();
+    $('.lot_entry_edit').find('[name=quantity]').val(12 * dozon);
+    $('.lot_entry_edit').find('[name=amount]').val(12 * dozon * rate);
+});
+
+// function set_date() {
+//     var currentdate = new Date();
+//     var datetime = currentdate.getFullYear() + "-0" +
+//         (currentdate.getMonth() + 1) + "-" +
+//         currentdate.getDate();
+//     $(".date").val(datetime);
+//     console.log(datetime);
+// }
+// set_date();
+
+function set_date() {
+    var hoy = new Date(),
+        d = hoy.getDate(),
+        m = hoy.getMonth() + 1,
+        y = hoy.getFullYear(),
+        data;
+
+    if (d < 10) {
+        d = "0" + d;
+    };
+    if (m < 10) {
+        m = "0" + m;
+    };
+
+    data = y + "-" + m + "-" + d;
+    console.log(data);
+    $(".date").val(data);
+}
+set_date();
+</script>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>assignment</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link href="assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="assets/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+    <link href="assets/css/theme-admin.css" rel="stylesheet"> -->
+    
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/pnotify.custom.min.css" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="assets/css/select2.min.css" />
+    <link rel="stylesheet" href="assets/css/theme-admin.css">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <div id="nav"></div>
+    <div class="content-wrapper">
+        <!-- main contents    -->
+        <div class="block hidden-print">
+            <form class="date_range" action="api/assignment.php" method="post">
+                <table>
+                    <tr>
+                        <td>Start Date</td>
+                        <td>End Date</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="date" class="form-control" name="start_date" autofocus="">
+                        </td>
+                        <td>
+                            <input type="date" class="form-control end_date" name="end_date" value="">
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-primary">Go</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <br>
+        <div class="final_assignment">
+            <table class="table table-bordered table-condensed  table-striped rowCont" id="user_data" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Worker Type</th>
+                        <th>Worker</th>
+                        <th>Date</th>
+                        <th>Total Quantity</th>
+                        <th>Total Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div id="footer"></div>
+</body>
+
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/popper.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/select2.min.js"></script>
+<script type="text/javascript" src="assets/js/pnotify.custom.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="assets/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="assets/js/theme-admin.js"></script>
+<script>
+PNotify.prototype.options.styling = "bootstrap3";
+PNotify.prototype.options.styling = "fontawesome";
+$('#nav').load('partials/nav.html');
+$('#footer').load('partials/footer.html');
+</script>
+<script src="assets/js/app.js"></script>
+<!-- main script -->
+<script type="text/javascript">
+var table;
+
+function GetData(form_data) {
+    table = $('#user_data').DataTable({
+        "ajax": {
+            url: "api/assignment.php?" + form_data,
+            dataSrc: "data"
+            // data: form_data,
+        },
+        destroy: true,
+        "columns": [
+            { "data": "id" },
+            { "data": "worker_type" },
+            { "data": "worker" },
+            { "data": "date_time" },
+            { "data": "total_quantity" },
+            { "data": "total_amount" },
+            {
+                "data": "id",
+                "render": function(data, type, row, meta) {
+                    return `<a class="btn btn-sm btn-primary btn-sm" href="assignment_details_view.html?id=${data}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                               <a class="btn btn-sm btn-success btn-sm" href="assignment_worker_edit.html?id=${data}"><i class="fa-pencil fa"></i></a>
+                               <a class="btn btn-sm btn-danger text-white btn-sm" data-id="${data}"><i class="fa fa-trash" aria-hidden="true"></i></a>`;
+                }
+            }
+
+        ]
+    }).draw(false);
+}
+$('.date_range').submit(function(e) {
+    e.preventDefault();
+    var form_data = $(this).serialize();
+    GetData(form_data);
+    // console.log(form_data);
+});
+GetData('');
+$('#user_data').on('click', 'tr .btn-danger', function() {
+    zubizi.ajax_delete_row('api/assignment.php?delete_id=' + $(this).data('id'), table, '', function() {
+        table.ajax.reload(null, false);
+    })
+});
+var hoy = new Date(),
+    d = hoy.getDate(),
+    m = hoy.getMonth() + 1,
+    y = hoy.getFullYear(),
+    data;
+
+if (d < 10) {
+    d = "0" + d;
+};
+if (m < 10) {
+    m = "0" + m;
+};
+
+data = y + "-" + m + "-" + d;
+console.log(data);
+$(".end_date").val(data);
+</script>
+
+</html>

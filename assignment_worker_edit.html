@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>assignment worker edit</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link href="assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="assets/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+    <link href="assets/css/theme-admin.css" rel="stylesheet"> -->
+    
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/pnotify.custom.min.css" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="assets/css/select2.min.css" />
+    <link rel="stylesheet" href="assets/css/theme-admin.css">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <div id="nav"></div>
+    <div class="content-wrapper">
+        <!-- main contents    -->
+        <div class="container" style="width:80%">
+            <br>
+            <br>
+            <form action="api/assignment.php" class="assignment_edit" method="post">
+                <div class="form-group row">
+                    <label class="col-sm-2  col-form-label">Worker Type:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control worker_type" name="worker_type2" rows="1" id="sel" style="width:100%">
+                            <option value="">Selet Worker Type</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2  col-form-label">Worker:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control worker2" name="worker2" rows="1" id="sel2 id" style="width:100%">
+                            <option value=" "></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-date-input" class="col-2 col-form-label">Date:</label>
+                    <div class="col-10">
+                        <input class="form-control" type="date" name="date_time" id="example-date-input ">
+                    </div>
+                </div>
+                <br>
+                <table class="table table-bordered table-condensed table-hover table-striped rowCont assignment_table" id="edit_table" style="width: 100%">
+                    <thead>
+                        <th>Design No</th>
+                        <th>Lot No</th>
+                        <th>Size</th>
+                        <th>Quantity</th>
+                        <th>Rate</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <select class="table-input select_product design" style="width:100%">
+                                    <option value="">select design no</option>
+                                </select>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <input type="text" name="total_qty" readonly class="total_qty form-control">
+                            </td>
+                            <td></td>
+                            <td>
+                                <input type="text" name="total_amount" readonly class="total_amount form-control">
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <br>
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                        <input type="hidden" name="assignment_edit_id" value="">
+                        <button type="submit" class="btn btn-primary" value="">Save &nbsp;</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="footer"></div>
+</body>
+
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/popper.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/select2.min.js"></script>
+<script type="text/javascript" src="assets/js/pnotify.custom.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="assets/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="assets/js/theme-admin.js"></script>
+<script>
+PNotify.prototype.options.styling = "bootstrap3";
+PNotify.prototype.options.styling = "fontawesome";
+$('#nav').load('partials/nav.html');
+$('#footer').load('partials/footer.html');
+</script>
+<script src="assets/js/app.js"></script>
+<!-- main script -->
+<script type="text/javascript">
+var id = zubizi.getUrlParameter('id');
+var table;
+$.ajax({
+    url: "api/get_lot_entry.php",
+    success: function(result) {
+        FooterCalc();
+        data = $.map(result.data, function(object) {
+            object.text = `${object.design_no} | ${object.lot_no}`;
+        })
+        $(".design").html('<option value="">Please select</option>')
+        $(".design").select2({
+            data: result.data,
+            placeholder: 'Select Design No || Lot No'
+        });
+    }
+});
+zubizi.ajax_form_submit(".assignment_edit", '', function(result) {
+    console.log(result)
+    window.location.href = "assignment_details_view.html?id=" + result.last_id
+});
+$.ajax({
+    url: "api/get_worker_type.php",
+    success: function(data) {
+        $(".worker_type").html('<option value="">Please select</option>');
+        $(".worker_type").select2({
+            data: data.data,
+            placeholder: 'Select an option'
+        });
+    }
+});
+$.ajax({
+    url: "api/get_worker.php",
+    success: function(result) {
+        $(".worker2").html('<option value="">Please select</option>');
+        data = $.map(result.data, function(object) {
+            object.text = object.name;
+            object.id = object.worker_id;
+        })
+        $(".worker2").select2({
+            data: result.data,
+            placeholder: 'Select an option'
+        });
+    }
+});
+$.ajax({
+    url: "api/assignment.php",
+    data: {
+        id: id
+    },
+    success: function(data) {
+        console.log(id);
+        var form = $(".assignment_edit");
+        form.find('[name=assignment_edit_id]').val(id);
+        form.find('[name=worker_type2]').val(data.header.worker_type_id).trigger("change");
+        form.find('[name=worker2]').val(data.header.worker_id).trigger("change");
+        form.find('[name=date_time]').val(data.header.date_sort);
+        form.find('[name=total_qty]').val(data.header.total_quantity);
+        form.find('[name=total_amount]').val(data.header.total_amount);
+        table = $('.assignment_table').DataTable({
+            //FooterCalc();
+            "searching": false,
+            "info": false,
+            "processing": true,
+            "paging": false,
+            data: data.items,
+            "columns": [{
+                    "data": 'design_no',
+                    "render": function(data, type, row) {
+                        return '<input class="form-control" type="text" readonly value="' + data + '" name="design[]">';
+                    }
+                },
+                {
+                    "data": "lot_no",
+                    "render": function(data, type, row) {
+                        return '<input class="form-control" type="text" readonly value="' + data + '" name="lot[]">';
+                    }
+                },
+                {
+                    "data": "size",
+                    "render": function(data, type, row) {
+                        return '<input class="form-control"  type="text" value="' + data + '" name="Size[]">';
+                    }
+                },
+                {
+                    "data": "quantity",
+                    "render": function(data, type, row) {
+                        return '<input class="form-control quantity"  type="text" value="' + data + '" name="quantity[]">';
+                    }
+                },
+                {
+                    "data": "rate",
+                    "render": function(data, type, row) {
+                        return '<input class="form-control rate"  type="text" value="' + data + '" name="rate[]">';
+                    }
+                },
+                {
+                    "data": "amount",
+                    "render": function(data, type, row) {
+                        return '<input class="form-control amount" readonly type="text" value="' + data + '" name="amount[]">';
+                    }
+                },
+                {
+                    "data": "lot_id",
+                    "render": function(data, type, row) {
+                        //console.log(data);
+                        return `<button class="btn btn-danger" type="button" class="form-control"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <input type="hidden" value="${data}" name="lot_id[]">`
+                    }
+                },
+
+            ],
+        });
+    }
+});
+
+function FooterCalc() {
+    var total_qty = zubizi.sum('.quantity');
+    var total_amount = zubizi.sum('.amount');
+    console.log(total_qty);
+    $("[name=total_qty]").val(total_qty);
+    $("[name=total_amount]").val(total_amount);
+}
+$(".design").on("select2:select", function() {
+    var lot_id = $(this).val(null).trigger("change");
+    $.ajax({
+        url: "api/get_lot_entry.php",
+        data: { lot_no: lot_id },
+        success: function(result) {
+            table.rows.add([{
+                "design_no": result['data'][0].design_no,
+                "lot_no": result['data'][0].lot_no,
+                "size": '',
+                "rate": result['data'][0].rate,
+                "quantity": result['data'][0].quantity,
+                "amount": result['data'][0].amount,
+                "lot_id": lot_id
+
+            }]).draw();
+            FooterCalc();
+        }
+    });
+});
+$('#edit_table').on('click', 'tr .btn-danger', function() {
+    table.row($(this).parents('tr')).remove().draw(false);
+    FooterCalc();
+});
+$('.assignment_table').on('keyup change', 'tr input', function() {
+    var thisRow = $(this).parents('tr');
+    var rate_field = thisRow.find('.rate');
+    var qty_field = thisRow.find('.quantity');
+    var amount_field = thisRow.find('.amount');
+    var rate_x_qty = +rate_field.val() * +qty_field.val();
+    amount_field.val(rate_x_qty);
+    FooterCalc();
+});
+//FooterCalc();
+</script>
+
+</html>

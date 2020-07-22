@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>final_receive_view</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link href="assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="assets/css/jquery.dataTables.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-faded">
+        <a class="navbar-brand">Zubizi</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <!--  <li class="nav-item active">
+                    <a class="nav-link" href="receive_item_edit.html">receive_item_edit</a>
+                </li> -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="company_details_edit.html">Company_Details_Edit</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="worker.html">Worker_Details</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="lot_entry.html">Lot_Entry</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="worker_assing.html">Worker_Assing</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="final_assignment.html">Assignment_View</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="received.html">Receive</a>
+                </li>
+                <!-- <li class="nav-item active">
+                    <a class="nav-link" href="receive_item_view.html">Receive_Item_View</a>
+                </li> -->
+                <!--  <li class="nav-item active">
+                    <a class="nav-link" href="final_assignment.html">Assignment View</a>
+                </li> -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="receive_item_view.html">Receive_View</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container" style="width:80%">
+        <br>
+        <br>
+        <div class="first_part">
+            <table style="width:100%">
+                <tr class="text-rigth">
+                    <td>
+                        <h5>Name:</h5>
+                    </td>
+                    <td>
+                        <h5 class="worker_name"></h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Date:</h5>
+                    </td>
+                    <td>
+                        <h5 class="date"></h5>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <table class="table table-bordered table-condensed table-hover table-striped rowCont receive_table" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>Design No</th>
+                    <th>Lot No</th>
+                    <th>Size</th>
+                    <th>Quantity</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th class="total_quantity"></th>
+                    <th></th>
+                    <th class="total_amount"></th>
+                </tr>
+            </tfoot>
+        </table>
+        <br>
+        <div class="buttons"></div>
+    </div>
+    <footer>
+        <span></span>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+    <script type="text/javascript" src="assets/js/pnotify.custom.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
+    <script>
+    PNotify.prototype.options.styling = "bootstrap3";
+    PNotify.prototype.options.styling = "fontawesome";
+    </script>
+    <script src="assets/js/app.js"></script>
+    <script type="text/javascript">
+    </script>
+    <script type="text/javascript">
+    var id = zubizi.getUrlParameter('id');
+    console.log(id)
+    $.ajax({
+        url: "api/get_received.php",
+        data: {
+            id: id
+        },
+        success: function(data) {
+            console.log(id)
+            var table = $('.receive_table').DataTable({
+                "searching": false,
+                "info": false,
+                "paging": false,
+                // "responsive": true,
+                data: data.items,
+                "columns": [
+                    { "data": "design_no" },
+                    { "data": "lot" },
+                    { "data": "size" },
+                    { "data": "quantity" },
+                    { "data": "rate" },
+                    { "data": "amount" }
+                ]
+            });
+
+            $(".date").text(data.data.date);
+            $(".worker_name").text(data.data.worker_name);
+            $(".total_quantity").text(data.data.total_quantity);
+            $(".total_amount").text(data.data.total_amount);
+            $(".buttons").html(`<a href="receive_item_edit.html?id=${id}" class="btn btn-success" >Edit</a>`);
+        }
+    });
+    </script>
+</body>
+
+</html>

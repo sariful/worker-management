@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script> -->
+
+    
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/pnotify.custom.min.css" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="assets/css/select2.min.css" />
+    <link rel="stylesheet" href="assets/css/theme-admin.css">
+</head>
+
+<body>
+    <div class="container">
+    <h2>Modal Example</h2>
+    <!-- Button to Open the Modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Open modal
+    </button>
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Modal Heading</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <br>
+                    <div class="container">
+                        <br>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#menu1">Menu 1</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#menu2">Menu 2</a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div id="home" class="container tab-pane active">
+                                <br>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" id="box" value="">Option 1
+                                    </label>
+                                </div>
+                                <form id="frm">
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Name:</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputEmail3" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Address:</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputEmail3" placeholder="Address">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="example-number-input" class="col-2 col-form-label">Mobile:</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="number" value="42" id="example-number-input">
+                                            <option value=" "> </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2  col-form-label">State:</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control option-select-hsn" rows="1" id="sel2" style="width:100%">
+                                                <option value=" ">Select Customer State</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">GSTIN:</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputEmail3" placeholder="GST No">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="exampleSelect1" class="col-sm-2 col-form-label">Form Type:</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control">
+                                                <option>Select Form Type</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Remarks:</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" rows="1" id="comment"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="offset-sm-2 col-sm-10">
+                                            <button type="submit" class="btn btn-primary ">Save &nbsp;</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="menu1" class="container tab-pane fade">
+                                <br>
+                                <h3>Menu 1</h3>
+                                 <form >
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Name:</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputEmail3" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Address:</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputEmail3" placeholder="Address">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="example-number-input" class="col-2 col-form-label">Mobile:</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="number" value="42" id="example-number-input">
+                                            <option value=" "> </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2  col-form-label">State:</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control option-select-hsn" rows="1" id="sel2" style="width:100%">
+                                                <option value=" ">Select Customer State</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">GSTIN:</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputEmail3" placeholder="GST No">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="exampleSelect1" class="col-sm-2 col-form-label">Form Type:</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control">
+                                                <option>Select Form Type</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Remarks:</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" rows="1" id="comment"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="offset-sm-2 col-sm-10">
+                                            <button type="submit" class="btn btn-primary ">Save &nbsp;</button>
+                                        </div>
+                                    </div>
+                                </form> 
+                            </div>
+                            <div id="menu2" class="container tab-pane fade">
+                                <br>
+                                <h3>Menu 2</h3>
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#box").on("click", function() {
+        if ($('#box:checked').length > 0) {
+            $('#frm').slideUp();
+        } else {
+            $('#frm').slideDown();
+        }
+    });
+});
+</script>
+</body>
+
+</html>

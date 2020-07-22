@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>worker due list</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link href="assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="assets/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="assets/css/jquery.dataTables.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container" style="width: 80%">
+        <br>
+        <h3>Worker Due List</h3>
+        <br>
+        <div class="container">
+            <table class="table table-striped table-bordered row-border hover order-column example worker_due_list" cellspacing="0" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Worker</th>
+                        <th>Type</th>
+                        <th>Assigned_qty</th>
+                        <th>Assigned_amt</th>
+                        <th>Received_qty</th>
+                        <th>Received_amt</th>
+                        <th>Payment_amt</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th class="total_assigned_qty"></th>
+                        <th class="total_assigned_amt"></th>
+                        <th class="total_receive_qty"></th>
+                        <th class="total_receive_amt"></th>
+                        <th class="total_payment_amt"></th>
+                        <th class="total_balance"></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <footer>
+        <span></span>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+    <script type="text/javascript" src="assets/js/pnotify.custom.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
+    <script>
+    PNotify.prototype.options.styling = "bootstrap3";
+    PNotify.prototype.options.styling = "fontawesome";
+    </script>
+    <script type="text/javascript">
+    var table = $('.worker_due_list').DataTable({
+        "ajax": {
+            url: "api/get_worker_due_list.php",
+            // dataSrc: "data",
+            dataSrc: function(result) {
+                data = $.map(result.data, function(object) {
+                    object.balance = object.receive_amt - object.payment_amt;
+                    return object;
+                    // object.text = `${object.name}`;
+
+                });
+                console.log(result.data)
+                return result.data;
+            },
+        },
+        "columns": [
+            { "data": "name" },
+            { "data": "worker_type" },
+            { "data": "assigned_qty" },
+            { "data": "assigned_amt" },
+            { "data": "receive_qty" },
+            { "data": "receive_amt" },
+            { "data": "payment_amt" },
+            { "data": "balance" }
+        ],
+        "footerCallback": function(row, data, start, end, display) {
+            var api = this.api(),
+                data;
+            var intVal = function(i) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '') * 1 :
+                    typeof i === 'number' ?
+                    i : 0;
+            };
+            total_assigned_qty = api
+                .column(2)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+            total_assigned_amt = api
+                .column(3)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+            total_receive_qty = api
+                .column(4)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+            total_receive_amt = api
+                .column(5)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+            total_payment_amt = api
+                .column(6)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+            total_balance = api
+                .column(7)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+            // $(api.column(2).footer()).text(total_assigned_qty);
+            // $(api.column(3).footer()).text(total_assigned_amt);
+            $('.total_assigned_qty').text(total_assigned_qty);
+            $('.total_assigned_amt').text(total_assigned_amt);
+            $('.total_receive_qty').text(total_receive_qty);
+            $('.total_receive_amt').text(total_receive_amt);
+            $('.total_payment_amt').text(total_payment_amt);
+            $('.total_balance').text(total_balance);
+        }
+    });
+    </script>
+</body>
+
+</html>

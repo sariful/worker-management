@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Worker Details</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link href="assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="assets/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-faded">
+        <a class="navbar-brand">Zubizi</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="worker_payment.html">Worker_Payment</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="company_details_edit.html">Company_Details_Edit</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Worker_Details</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="lot_entry.html">Lot_Entry</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="worker_assing.html">Worker_Assing</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="final_assignment.html">Assignment_View</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="received.html">Receive</a>
+                </li>
+                <!-- <li class="nav-item active">
+                    <a class="nav-link" href="receive_item_view.html">Receive_Item_View</a>
+                </li> -->
+                <!--  <li class="nav-item active">
+                    <a class="nav-link" href="final_assignment.html">Assignment View</a>
+                </li> -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="receive_item_view.html">Receive_View</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container" style="width:85%">
+        <br>
+        <div class="container">
+            <!-- Button to Open the Modal -->
+        </div>
+        <div>
+            <div class="container">
+                <br>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#home">Add Worker</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#menu1">Add Worker Type</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#menu3">View</a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div id="home" class="container tab-pane active">
+                        <br>
+                        <!-- start_form_add_worker -->
+                        <form class="add_worker" action="api/get_worker.php" method="post">
+                            <div class="form-group row">
+                                <label class="col-sm-2  col-form-label">Worker Type:</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control worker_type" name="worker_type" rows="1" id="sel2" style="width:100%" autofocus>
+                                        <option value="">Select Worker Type</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Name:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control name" id="name" name="name" placeholder="Name">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Address:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-number-input" class="col-sm-2 col-form-label">Phone No:</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="phone_no" name="phone_no" placeholder="Phone No">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-number-input" class="col-sm-2 col-form-label">Opening Balance:</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="opening_balance" name="opening_balance" placeholder="Opening Balance">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Remarks:</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" rows="2" name="remarks" placeholder="Remarks" id="comment"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="offset-sm-2 col-sm-10">
+                                    <input type="hidden" name="entry">
+                                    <button type="submit" class="btn btn-primary ">Save &nbsp;</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- end_form_add_worker -->
+                    </div>
+                    <div id="menu1" class="container tab-pane fade">
+                        <br>
+                        <!-- start_form_add_worker_type -->
+                        <form class="type_form" action="api/get_worker_type.php" method="post">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Worker Type:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="worker_type" name="worker_type" placeholder="Worker Type">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="offset-sm-2 col-sm-10">
+                                    <input type="hidden" name="entry">
+                                    <button type="submit" class="btn btn-primary ">Save &nbsp;</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div>
+                            <br>
+                            <br>
+                            <table class="view_worker_type table table-striped table-bordered row-border hover order-column example " name="type_delete_id" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Worker Type</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="menu3" class="container tab-pane fade">
+                        <br>
+                        <br>
+                        <table class="worker_table table table-striped table-bordered row-border hover order-column example " name="delete_id" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Mobile</th>
+                                    <th>Opening Balance</th>
+                                    <th>Remarks</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- end     -->
+        </div>
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <!-- start_modal_form_add_worker -->
+                        <form class="modal_add_worker" action="api/get_worker.php" style="width:65%" id="modal_form" method="post">
+                            <div class="form-group row">
+                                <label class="col-sm-4  col-form-label">Worker Type:</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control worker_type" name="worker_type2" rows="1" id="sel2" style="width:100%">
+                                        <option value=" ">Select Worker Typ</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Name:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Address:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-number-input" class="col-sm-4 col-form-label">Phone No:</label>
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control" id="phone_no" name="phone_no" placeholder="Phone No">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-number-input" class="col-sm-4 col-form-label">Opening Balance:</label>
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control" id="Opening Balance" name="opening_balance" placeholder="Opening Balance">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Remarks:</label>
+                                <div class="col-sm-8">
+                                    <textarea class="form-control" rows="2" name="remarks" placeholder="Remarks" id="comment"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="offset-sm-4 col-sm-10">
+                                    <input type="hidden" name="edit_id">
+                                    <button type="submit" class="btn btn-primary ">Save &nbsp;</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- end_modal_form_add_worker -->
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="type_Modal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <!-- start_modal_form_add_worker -->
+                        <form class="modal_worker_type" action="api/get_worker_type.php" style="width:65%" id="modal_form" method="post">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label">Worker Type:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="worker_type" name="worker_type" placeholder="worker_type">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="offset-sm-4 col-sm-10">
+                                    <input type="hidden" name="type_edit_id">
+                                    <button type="submit" class="btn btn-primary ">Save &nbsp;</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <span></span>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+    <script type="text/javascript" src="assets/js/pnotify.custom.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+    PNotify.prototype.options.styling = "bootstrap3";
+    PNotify.prototype.options.styling = "fontawesome";
+    </script>
+    <script src="assets/js/app.js"></script>
+    <script>
+    zubizi.ajax_form_submit(".type_form", '', function() {
+        table2.ajax.reload(null, false);
+        set_worker_type();
+        // location.reload();
+    });
+    zubizi.ajax_form_submit(".add_worker", '[name=worker_type]', function() {
+        table.ajax.reload(null, false);
+    });
+    zubizi.ajax_form_submit(".modal_worker_type", '', function() {
+        table2.ajax.reload(null, false);
+        set_worker_type();
+    });
+    zubizi.ajax_form_submit(".modal_add_worker", '', function() {
+        table.ajax.reload(null, false);
+    });
+    var table2 = $('.view_worker_type').DataTable({
+        "ajax": {
+            url: "api/get_worker_type.php",
+            dataSrc: "data"
+        },
+        "columns": [
+            { "data": "id" },
+            { "data": "text" },
+            {
+                "data": "id",
+                "render": function(data, type, row, meta) {
+                    return ` <button class="btn btn-success btn-sm"  data-id="${data}"><i class="fa-pencil fa"></i></button>
+                             <button class="btn btn-danger btn-sm"  data-id="${data}" name="type_delete_id"><i class="fa fa-trash" aria-hidden="true"></i></button>`;
+                }
+            }
+        ]
+    }).draw(false);
+
+    function set_worker_type() {
+        $.ajax({
+            url: "api/get_worker_type.php",
+            success: function(data) {
+                $(".worker_type").html('<option value="">Please select</option>');
+                $(".worker_type").select2({
+                    data: data.data,
+                    placeholder: 'Select an option'
+                }); //.select2('open');
+            }
+        });
+    }
+    set_worker_type();
+    var table = $('.worker_table').DataTable({
+        "ajax": {
+            url: "api/get_worker.php",
+            dataSrc: "data"
+        },
+        "columns": [
+            { "data": "worker_type" },
+            { "data": "name" },
+            { "data": "address" },
+            { "data": "phone_no" },
+            { "data": "opening_balance" },
+            { "data": "remarks" },
+            {
+                "data": "worker_id",
+                "render": function(data, type, row, meta) {
+                    return ` <button class="btn btn-success btn-sm"  data-id="${data}"><i class="fa-pencil fa"></i></button>
+                             <button class="btn btn-danger btn-sm"  data-id="${data}" name="delete_id"><i class="fa fa-trash" aria-hidden="true"></i></button>`;
+                }
+            }
+        ]
+    }).draw(false);
+    $('.worker_table tbody').on('click', 'tr .btn-success', function() {
+        var data = table.row($(this).parents('tr')).data();
+        $('#myModal').modal('show');
+        $('#myModal').on('shown.bs.modal', function(event) {
+            var modal = $(this);
+            modal.find('[name=edit_id]').val(data.worker_id);
+            modal.find('[name=worker_type2]').val(data.worker_type_id).trigger("change");
+            modal.find('[name=name]').val(data.name);
+            modal.find('[name=address]').val(data.address);
+            modal.find('[name=phone_no]').val(data.phone_no);
+            modal.find('[name=opening_balance]').val(data.opening_balance);
+            modal.find('[name=remarks]').val(data.remarks);
+        });
+    });
+    $('.worker_table tbody').on('click', 'tr .btn-danger', function() {
+        zubizi.ajax_delete_row('api/get_worker.php?delete_id=' + $(this).data('id'), table, '', function() {
+            table.ajax.reload(null, false);
+        });
+    });
+    $('.view_worker_type tbody').on('click', 'tr .btn-success', function() {
+        var data = table2.row($(this).parents('tr')).data();
+        $('#type_Modal').modal('show');
+        $('#type_Modal').on('shown.bs.modal', function(event) {
+            var modal = $(this);
+            modal.find('[name=type_edit_id]').val(data.id);
+            modal.find('[name=worker_type]').val(data.text);
+        });
+    });
+    $('.view_worker_type tbody').on('click', 'tr .btn-danger', function() {
+        zubizi.ajax_delete_row('api/get_worker_type.php?type_delete_id=' + $(this).data('id'), table2, '', function() {
+            table2.ajax.reload(null, false);
+            // location.reload();
+            // window.location.href="worker.html";
+        });
+    });
+    </script>
+</body>
+
+</html>

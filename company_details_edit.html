@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>company details edit</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link href="assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="assets/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" /> -->
+    
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/pnotify.custom.min.css" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="assets/css/select2.min.css" />
+    <link rel="stylesheet" href="assets/css/theme-admin.css">
+    <link href="assets/css/theme-admin.css" rel="stylesheet">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <div id="nav"></div>
+    <div class="content-wrapper">
+        <!-- main contents    -->
+        <div class="container">
+            <form class="company_details_edit" action="api/get_company_details.php" method="post">
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-sm-2 col-form-label">Name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="example-text-input" name="name" placeholder="Name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-sm-2 col-form-label">Address:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="example-text-input" name="Address" placeholder="Address">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-number-input" class="col-sm-2 col-form-label">Mobile:</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="Mobile" name="Mobile" placeholder="Mobile">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-email-input" class="col-sm-2 col-form-label">Email:</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="example-email-input" name="Email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-sm-2 col-form-label">GSTIN:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="example-text-input" name="gst" placeholder="GSTIN">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-sm-2 col-form-label">Extension:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="example-text-input" name="Extension" placeholder="Extension">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2  col-form-label">Print Setup:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control Print_Setup" name="Print_Setup" rows="1" id="sel2" style="width:100%">
+                            <option value=" ">Selet Print Setup</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-sm-2 col-form-label">Bank Name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="example-text-input" name="Bank_Name" placeholder="Bank Name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-sm-2 col-form-label">Bank Ac. No:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="example-text-input" name="Bank_Ac_No" placeholder="Bank Ac. No">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-sm-2 col-form-label">Bank IFSC:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="example-text-input" name="Bank_IFSC" placeholder="Bank IFSC">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-sm-2 col-form-label">Bank RTGS:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="example-text-input" name="Bank_RTGS" placeholder="Bank RTGS">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-sm-2 col-form-label">Invoice Suffix:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="example-text-input" name="Invoice_Suffix" placeholder="Invoice Suffix">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-sm-2 col-form-label">Invoice Prefix:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="example-text-input" name="Invoice_Prefix" placeholder="Invoice Prefix">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                        <input type="hidden" name="edit_id">
+                        <button type="submit" class="btn btn-primary ">Save &nbsp;</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="footer"></div>
+</body>
+
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/popper.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/select2.min.js"></script>
+<script type="text/javascript" src="assets/js/pnotify.custom.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="assets/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="assets/js/theme-admin.js"></script>
+<script>
+PNotify.prototype.options.styling = "bootstrap3";
+PNotify.prototype.options.styling = "fontawesome";
+$('#nav').load('partials/nav.html');
+$('#footer').load('partials/footer.html');
+</script>
+<script src="assets/js/app.js"></script>
+<!-- main script -->
+<script>
+zubizi.ajax_form_submit(".company_details_edit", '', function(result) {
+    location.reload();
+});
+$.ajax({
+    url: "api/get_print_setup.php",
+    success: function(data) {
+        $(".Print_Setup").html('<option value="">Please select</option>');
+        $(".Print_Setup").select2({
+            data: data,
+            placeholder: 'Select an option'
+        });
+    }
+});
+$.ajax({
+    url: "api/get_company_details.php",
+    success: function(data) {
+        console.log(data);
+        var form = $(".company_details_edit");
+        form.find('[name=edit_id]').val(data.data.id);
+        form.find('[name=name]').val(data.data.name).focus();
+        form.find('[name=Address]').val(data.data.address);
+        form.find('[name=Mobile]').val(data.data.mobile);
+        form.find('[name=Email]').val(data.data.email);
+        form.find('[name=gst]').val(data.data.gst);
+        form.find('[name=Extension]').val(data.data.extension);
+        form.find('[name=Print_Setup]').val(data.data.text);
+        form.find('[name=Print_Setup]').val(data.data.print_id).trigger("change");
+        form.find('[name=Bank_Name]').val(data.data.bank_name);
+        form.find('[name=Bank_Ac_No]').val(data.data.bank_ac_no);
+        form.find('[name=Bank_IFSC]').val(data.data.bank_ifsc);
+        form.find('[name=Bank_RTGS]').val(data.data.bank_rtgs);
+        form.find('[name=Invoice_Suffix]').val(data.data.invoice_suffix);
+        form.find('[name=Invoice_Prefix]').val(data.data.invoice_prefix);
+
+        // console.log(data.data.print_id)
+    }
+});
+</script>
+
+</html>

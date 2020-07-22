@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>worker_payment</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link href="assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="assets/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="assets/css/jquery.dataTables.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container" style="width:85%">
+        <br>
+        <div class="container">
+        </div>
+        <div class="container" style="width: 85%">
+            <br>
+            <h3>Worker Payment</h3>
+            <div class="container">
+                <br>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#home">Worker Payment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#menu1">View</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="home" class="container tab-pane active">
+                        <br>
+                        <form class="worker_payment" action="api/get_worker_payment.php" method="post">
+                            <div class="form-group row">
+                                <label class="col-sm-2  col-form-label">Worker Name:</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control worker_name" name="worker_name" rows="1" id="sel2" style="width:100%" autofocus>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-date-input" class="col-2 col-form-label">Date:</label>
+                                <div class="col-10">
+                                    <input class="form-control date" type="date" name="date_time" id="example-date-input">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-number-input" class="col-2 col-form-label">Adjustment:</label>
+                                <div class="col-10">
+                                    <input class="form-control adjustment" type="number" name="adjustment" id="example-number-input" placeholder="Adjustment">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-number-input" class="col-2 col-form-label">Amount:</label>
+                                <div class="col-10">
+                                    <input class="form-control amount" type="number" name="amount" id="example-number-input" placeholder="Amount">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2  col-form-label">Payment Method:</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control payment_method" name="payment_method" rows="1" id="sel2" style="width:100%">
+                                        <option value="">Select Payment Method</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Cheque No:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="example-text-input" name="cheque_no" placeholder="Cheque No">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Remarks:</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" rows="2" name="remarks" placeholder="Remarks" id="comment"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="offset-sm-2 col-sm-10">
+                                    <input type="hidden" name="entry">
+                                    <button type="submit" class="btn btn-primary ">Save &nbsp;</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="menu1" class="container tab-pane fade">
+                        <br>
+                        <form class="date_range" action="api/get_worker_payment.php" method="post">
+                            <table>
+                                <tr>
+                                    <td>Start Date</td>
+                                    <td>End Date</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="date" class="form-control" name="start_date" autofocus="">
+                                    </td>
+                                    <td>
+                                        <input type="date" class="form-control date2" name="end_date" value="">
+                                    </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary">Go</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                        <br>
+                        <table class="worker_payment_table table table-striped table-bordered row-border hover order-column example" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <td>Worker Name</td>
+                                    <td>Date</td>
+                                    <td>Adjustment</td>
+                                    <td>Amount</td>
+                                    <td>Payment Metdod</td>
+                                    <td>Cheque No</td>
+                                    <td>Remarks</td>
+                                    <td>Action</td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal fade" id="myModal">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <!-- start_modal_form_add_worker -->
+                                <form class="payment_entry_edit" action="api/get_worker_payment.php" method="post">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2  col-form-label">Worker Name:</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control worker_name" name="worker_name" rows="1" id="sel2" style="width:100%" autofocus>
+                                                <option value=""></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="example-date-input" class="col-2 col-form-label">Date:</label>
+                                        <div class="col-10">
+                                            <input class="form-control date" type="date" name="date_time" id="example-date-input">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="example-number-input" class="col-2 col-form-label">Adjustment:</label>
+                                        <div class="col-10">
+                                            <input class="form-control adjustment" type="number" name="adjustment" id="example-number-input" placeholder="Adjustment">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="example-number-input" class="col-2 col-form-label">Amount:</label>
+                                        <div class="col-10">
+                                            <input class="form-control amount" type="number" name="amount" id="example-number-input" placeholder="Amount">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2  col-form-label">Payment Method:</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control payment_method" name="payment_method" rows="1" id="sel2" style="width:100%">
+                                                <option value="">Select Payment Method</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="example-text-input" class="col-sm-2 col-form-label">Cheque No:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="example-text-input" name="cheque_no" placeholder="Cheque No">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Remarks:</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" rows="2" name="remarks" placeholder="Remarks" id="comment"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="offset-sm-2 col-sm-10">
+                                            <input type="hidden" name="edit_id">
+                                            <button type="submit" class="btn btn-primary ">Save &nbsp;</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- end_modal_form_add_worker -->
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <span></span>
+        </footer>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+        <script type="text/javascript" src="assets/js/pnotify.custom.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
+        <script>
+        PNotify.prototype.options.styling = "bootstrap3";
+        PNotify.prototype.options.styling = "fontawesome";
+        </script>
+        <script src="assets/js/app.js"></script>
+        <script type="text/javascript">
+        zubizi.ajax_form_submit('.worker_payment', '', function() {
+            //table.ajax.reload(null, false);
+             window.location.href='';
+        });
+        $.ajax({
+            url: "api/get_worker.php",
+            success: function(result) {
+                console.log(result);
+                data = $.map(result.data, function(object) {
+                    object.text = object.name;
+                    object.id = object.worker_id;
+                });
+                $(".worker_name").html('<option value="">Please select</option>');
+                $(".worker_name").select2({
+                    data: result.data,
+                    placeholder: 'Select an option'
+                });
+            }
+        });
+        $.ajax({
+            url: "api/get_payment_method.php",
+            success: function(data) {
+                $(".payment_method").html('<option value="">Please select</option>');
+                $(".payment_method").select2({
+                    data: data,
+                    placeholder: 'Select an option'
+                });
+            }
+        });
+
+        function GetData(form_data) {
+            var table = $('.worker_payment_table').DataTable({
+                "ajax": {
+                    url: "api/get_worker_payment.php?" + form_data,
+                    dataSrc: "data"
+                },
+                destroy: true,
+                "columns": [
+                    { "data": "worker" },
+                    { "data": "date" },
+                    { "data": "adjustment" },
+                    { "data": "amount" },
+                    { "data": "payment_method" },
+                    { "data": "cheque_no" },
+                    { "data": "remarks" },
+                    {
+                        "data": "id",
+                        "render": function(data, type, row, meta) {
+                            return `<button class="btn btn-success btn-sm" data-id="${data}"><i class="fa-pencil fa"></i></button>
+                        <button class="btn btn-danger btn-sm" data-id="${data}"><i class="fa fa-trash" aria-hidden="true"></i></button>`
+                        }
+                    }
+                ]
+            }).draw(false);
+
+            $('.worker_payment_table ').on('click', 'tr .btn-danger', function() {
+                zubizi.ajax_delete_row('api/get_worker_payment.php?delete_id=' + $(this).data('id'), table);
+
+            });
+            zubizi.ajax_form_submit('.payment_entry_edit', '', function() {
+                table.ajax.reload(null, false);
+            });
+            $('.worker_payment_table ').on('click', 'tr .btn-success', function() {
+                var data = table.row($(this).parents('tr')).data();
+                $('#myModal').modal('show');
+                $('#myModal').on('shown.bs.modal', function(event) {
+                    var modal = $(this);
+                    console.log(modal)
+                    modal.find('[name=edit_id]').val(data.id);
+                    modal.find('[name=date_time]').val(data.date);
+                    modal.find('[name=worker_name]').val(data.worker_id).trigger("change");
+                    modal.find('[name=adjustment]').val(data.adjustment);
+                    modal.find('[name=payment_method]').val(data.payment_method_id).trigger("change");
+                    modal.find('[name=cheque_no]').val(data.cheque_no);
+                    modal.find('[name=remarks]').val(data.remarks);
+                    modal.find('[name=rate]').val(data.rate);
+                    modal.find('[name=amount]').val(data.amount);
+                });
+            });
+        }
+        $('.date_range').submit(function(e) {
+            e.preventDefault();
+            var form_data = $(this).serialize();
+            GetData(form_data);
+            // console.log(form_data);
+        });
+        GetData('');
+        var hoy = new Date(),
+            d = hoy.getDate(),
+            m = hoy.getMonth() + 1,
+            y = hoy.getFullYear(),
+            data;
+
+        if (d < 10) {
+            d = "0" + d;
+        };
+        if (m < 10) {
+            m = "0" + m;
+        };
+
+        data = y + "-" + m + "-" + d;
+       // console.log(data);
+        $(".date").val(data);
+        $(".date2").val(data);
+        </script>
+</body>
+
+</html>

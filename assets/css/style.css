@@ -1,0 +1,11 @@
+.ledger_table {
+	font-size: 12px;
+}
+
+
+
+@media print {
+	.hidden-print {
+		display: none !important;
+	}
+}
